@@ -46,18 +46,55 @@ export const routes = [
       },
     ],
   },
-  // TODO: Task 05-vue-router/01-AuthPages
+  // TO DO: Task 05-vue-router/01-AuthPages
+  {
+    path: '/login',
+    name: 'login',
+    meta: {
+      requireGuest: true,
+      title: 'Вход | Meetups',
+    },
+    component: () => import('../views/PageLogin.vue'),
+  },
+  {
+    path: '/register',
+    name: 'register',
+    meta: {
+      requireGuest: true,
+      title: 'Регистрация | Meetups',
+    },
+    component: () => import('../views/PageRegister.vue'),
+  },
   {
     path: '/meetups/create',
-    // TODO: Добавить страницу создания митапа
+    // TO DO: Добавить страницу создания митапа
+    name: 'meetups-create',
+    meta: {
+      requireAuth: true,
+      title: 'Создание митапа | Meetups',
+    },
+    component: () => import('../views/PageCreateMeetup.vue'),
   },
   {
     path: '/meetups/:meetupId(\\d+)/edit',
-    // TODO: Добавить страницу редактирования митапа
+    // TO DO: Добавить страницу редактирования митапа
+    name: 'meetup-edit',
+    props: (to) => ({
+      meetupId: +to.params.meetupId,
+    }),
+    meta: {
+      requireAuth: true,
+      title: 'Редактирование митапа | Meetups',
+    },
+    component: () => import('../views/PageEditMeetup.vue'),
   },
-  // TODO: Task 05-vue-router/02-PageNotFound
+  // TO DO: Task 05-vue-router/02-PageNotFound
   {
-    path: '/:unknownPath(.*)',
+    path: '/:pathMatch(.*)',
+    name: 'PageNotFound',
+    meta: {
+      title: 'Страница не найдена | Meetups',
+    },
     component: () => import('../views/PageNotFound.vue'),
   },
 ];

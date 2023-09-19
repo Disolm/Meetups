@@ -46,8 +46,9 @@
   </UiContainer>
 </template>
 
+
 <script>
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import MeetupsList from '../components/MeetupsList.vue';
 import MeetupsCalendar from '../components/MeetupsCalendar.vue';
 import UiRadioGroup from '../components/UiRadioGroup.vue';
@@ -59,8 +60,9 @@ import UiButtonGroupItem from '../components/UiButtonGroupItem.vue';
 import UiFormGroup from '../components/UiFormGroup.vue';
 import UiInput from '../components/UiInput.vue';
 import UiTransitionGroupFade from '../components/UiTransitionGroupFade.vue';
-import { useMeetupsFetch } from '../composables/useMeetupsFetch.js';
-import { useMeetupsFilter } from '../composables/useMeetupsFilter.js';
+import { useMeetupsFetch } from '@/composables/useMeetupsFetch.js';
+import { useMeetupsFilter } from '@/composables/useMeetupsFilter.js';
+import { useRoute } from 'vue-router';
 
 export default {
   name: 'PageMeetups',
@@ -93,7 +95,20 @@ export default {
              - Вынесите эту логику в универсальный компосабл useQuerySync
              - Будущая задача composition/useQuerySync
      */
+    // useQuerySync(view, filter);
 
+    onMounted(() => {
+      const route = useRoute()
+      if (route.query.view === 'calendar') {
+        view.value = 'calendar';
+      }
+
+      Object.keys(filter.value).forEach((filterKey) => {
+        if (route.query[filterKey]) {
+          filter.value[filterKey] = route.query[filterKey];
+        }
+      });
+    });
     const viewComponent = computed(() => {
       const viewToComponents = {
         list: MeetupsList,

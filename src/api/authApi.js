@@ -5,7 +5,8 @@ import { httpClient } from './httpClient/httpClient.js';
  * @returns {Promise<ResultContainer<User>>}
  */
 export function getUser() {
-  // TODO: реализовать функцию
+  // TO DO: реализовать функцию
+  return httpClient.get('/auth/user');
 }
 
 /**
@@ -24,7 +25,12 @@ export function loginUser(email, password) {
  * @returns {Promise<ResultContainer<User>>}
  */
 export function registerUser(user) {
-  // TODO: реализовать функцию
+  // TO DO: реализовать функцию
+  const fullname = user.fullname
+  const email = user.email
+  const password = user.password
+  return httpClient.post('/auth/register', { fullname, email, password });
+
 }
 
 /**
@@ -32,5 +38,6 @@ export function registerUser(user) {
  * @returns {Promise<ResultContainer<void>>}
  */
 export function logoutUser() {
-  // TODO: реализовать функцию
+  // TO DO: реализовать функцию
+  return httpClient.post('/auth/logout');
 }

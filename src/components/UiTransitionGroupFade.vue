@@ -1,14 +1,20 @@
 <template>
-  <TransitionGroup tag="div" name="fade-list" class="fade-list">
+  <TransitionGroup :tag="tag" name="fade-list" class="fade-list">
     <slot />
   </TransitionGroup>
 </template>
 
 <script>
-// TODO: Task 03-sfc/04-UiTransition
+// TO DO: Task 03-sfc/02-UiTransitionGroupFade
 
 export default {
   name: 'UiTransitionGroupFade',
+  props: {
+    tag: {
+      type: [String, Object, Function],
+      default: 'div',
+    },
+  },
 };
 </script>
 

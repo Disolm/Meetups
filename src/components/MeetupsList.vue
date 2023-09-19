@@ -1,5 +1,5 @@
 <template>
-  <ul class="meetups-list">
+  <UiTransitionGroupFade class="meetups-list" tag='ul'>
     <li v-for="meetup in meetups" :key="meetup.id" class="meetups-list__item">
       <RouterLink
         :to="{ name: 'meetup', params: { meetupId: meetup.id } }"
@@ -9,17 +9,19 @@
         <MeetupCard :meetup="meetup" />
       </RouterLink>
     </li>
-  </ul>
+  </UiTransitionGroupFade>
 </template>
 
 <script>
-// TODO: Добавить <UiTransitionGroupFade>
+// TO DO: Добавить <UiTransitionGroupFade>
 import MeetupCard from './MeetupCard.vue';
+import UiTransitionGroupFade from '@/components/UiTransitionGroupFade.vue';
 
 export default {
   name: 'MeetupsList',
 
   components: {
+    UiTransitionGroupFade,
     MeetupCard,
   },
 

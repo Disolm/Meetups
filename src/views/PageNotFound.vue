@@ -11,6 +11,7 @@
 
 <script>
 import UiContainer from '../components/UiContainer.vue';
+import { assignTitle } from '@/plugins/title';
 
 export default {
   name: 'PageNotFound',
@@ -20,7 +21,8 @@ export default {
   },
 
   setup() {
-    // TODO: <title> "Страница не найдена | Meetups"
+    // TO DO: <title> "Страница не найдена | Meetups"
+    assignTitle('Страница не найдена | Meetups')
   },
 };
 </script>

@@ -1,9 +1,9 @@
 <template>
   <LayoutBase>
     <RouterView>
-      <template #default="{ Component }">
-        <KeepAlive v-if="Component" :max="3">
-          <component :is="Component" />
+      <template #default='{ Component }'>
+        <KeepAlive v-if='Component' :max='3'>
+          <component :is='Component' />
         </KeepAlive>
       </template>
       <template #fallback>
@@ -17,6 +17,11 @@
 import LayoutBase from './components/LayoutBase.vue';
 import UiAlert from './components/UiAlert.vue';
 import { httpClient } from './api/httpClient/httpClient.js';
+import { useAuthStore } from './stores/useAuthStore';
+import { deleteUserFromLocalStorage } from './services/authService';
+import { useToaster } from '@/plugins/toaster';
+import { assignTitle } from '@/plugins/title';
+
 
 export default {
   name: 'App',
@@ -27,20 +32,38 @@ export default {
   },
 
   setup() {
-    // TODO: Установить <title> - "Meetups"
+    const toaster = useToaster();
 
-    // TODO: для авторизованных пользователей - запросить новые данные пользователя для актуализации и проверки актуальности
+    // TO DO: Установить <title> - "Meetups"
+    assignTitle("Meetups")
+
+
+    // TO DO: для авторизованных пользователей - запросить новые данные пользователя для актуализации и проверки актуальности
+    const authStore = useAuthStore();
+    if (authStore.isAuthenticated) {
+      authStore.getCurrentUser();
+    }
 
     httpClient.onUnauthenticated(() => {
-      // TODO: сессия пользователя больше не валидна - нужна обработка потери авторизации
+      // TO DO: сессия пользователя больше не валидна - нужна обработка потери авторизации
+      deleteUserFromLocalStorage();
+      location.reload();
     });
 
     httpClient.onNetworkError(() => {
-      // TODO: проблема с сетью, стоит вывести тост пользователю
+      // TO DO: проблема с сетью, стоит вывести тост пользователю
+      toaster.error('проблема с сетью');
     });
 
-    // TODO: обработка глобальных ошибок - необработанные исключения можно залогировать и вывести тост
-    // TODO: глобальные ошибки можно поймать событиями "error" и "unhandledrejection"
+    // TO DO: обработка глобальных ошибок - необработанные исключения можно залогировать и вывести тост
+    window.addEventListener('error', (event) => {
+      toaster.error(event.message);
+    });
+
+    // TO DO: глобальные ошибки можно поймать событиями "error" и "unhandledrejection"
+    window.addEventListener('unhandledrejection', (event) => {
+      toaster.error(event.reason);
+    });
   },
 };
 </script>

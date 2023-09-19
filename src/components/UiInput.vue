@@ -1,12 +1,74 @@
 <template>
-  <div>Task 06-wrappers/03-UiInput</div>
+  <div
+    class="input-group input-group_icon"
+    :class="{'input-group_icon-left': $slots['left-icon'], 'input-group_icon-right': $slots['right-icon']}"
+  >
+    <div
+      class="input-group__icon"
+      v-if="$slots['left-icon']"
+    >
+      <slot name="left-icon"/>
+    </div>
+    <component
+      :is="tag"
+      ref="input"
+      class="form-control"
+      :class="{'form-control_sm': small, 'form-control_rounded': rounded }"
+      :value="modelValue"
+      v-bind="$attrs"
+      @[eventname]="$emit('update:modelValue', $event.target.value)"
+    />
+    <div
+      class="input-group__icon"
+      v-if="$slots['right-icon']"
+    >
+      <slot name="right-icon"/>
+    </div>
+  </div>
 </template>
 
 <script>
-// TODO: Task 06-wrappers/03-UiInput
+// TO DO: Task 06-wrappers/03-UiInput
 
 export default {
   name: 'UiInput',
+  inheritAttrs: false,
+  props: {
+    modelValue: {
+      type: String,
+      required: false,
+    },
+    modelModifiers: {lazy: () => ({})},
+    small: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    rounded: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    multiline: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+  emits: ['update:modelValue'],
+  computed: {
+    tag() {
+      return this.multiline ? 'textarea' : 'input'
+    },
+    eventname() {
+      return this.modelModifiers ? 'change' : 'input'
+    }
+  },
+  methods: {
+    focus() {
+      this.$refs.input.focus();
+    },
+  }
 };
 </script>
 

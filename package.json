@@ -4,7 +4,7 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 5000",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext .vue,.js,.jsx,.ts,.tsx --fix --ignore-path .gitignore",

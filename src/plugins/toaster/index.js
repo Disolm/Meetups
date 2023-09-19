@@ -8,8 +8,14 @@ export function useToaster() {
 }
 
 export function createToaster({ container } = {}) {
-  const addDefaultContainer = () => document.body.appendChild(document.createElement('div'));
-  const toasterInstance = createApp(TheToaster).mount(container ?? addDefaultContainer());
+  const mountToaster = document.querySelector(container);
+  let toasterInstance;
+  if (mountToaster && mountToaster.__vue_app__) {
+    toasterInstance = mountToaster.__vue_app__._instance.proxy;
+  } else {
+    const addDefaultContainer = () => document.body.appendChild(document.createElement('div'));
+    toasterInstance = createApp(TheToaster).mount(container ?? addDefaultContainer());
+  }
 
   const toaster = {
     success: toasterInstance.success,

@@ -1,12 +1,22 @@
 <template>
-  <div>Task 02-components/05-MeetupAgenda</div>
+  <ul class="agenda">
+    <li
+      v-for="agendaItem in agenda"
+      class="agenda__item"
+    >
+      <MeetupAgendaItem :agenda-item="agendaItem" />
+    </li>
+  </ul>
 </template>
 
 <script>
-// TODO: Task 02-components/05-MeetupAgenda
+// TO DO: Task 02-components/05-MeetupAgenda
+
+import MeetupAgendaItem from '@/components/MeetupAgendaItem.vue';
 
 export default {
   name: 'MeetupAgenda',
+  components: { MeetupAgendaItem },
 
   props: {
     agenda: {

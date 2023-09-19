@@ -36,6 +36,75 @@ export const talkLanguageOptions = [
   { value: 'EN', text: 'EN' },
 ];
 
+const commonAgendaItemFormSchema = {
+  title: {
+    label: 'Нестандартный текст (необязательно)',
+    component: 'ui-input',
+    props: {
+      name: 'title',
+    },
+  },
+};
+
+export const agendaItemFormSchemas = {
+  registration: commonAgendaItemFormSchema,
+  opening: commonAgendaItemFormSchema,
+  talk: {
+    title: {
+      label: 'Тема',
+      component: 'ui-input',
+      props: {
+        name: 'title',
+      },
+    },
+    speaker: {
+      label: 'Докладчик',
+      component: 'ui-input',
+      props: {
+        name: 'speaker',
+      },
+    },
+    description: {
+      label: 'Описание',
+      component: 'ui-input',
+      props: {
+        multiline: true,
+        name: 'description',
+      },
+    },
+    language: {
+      label: 'Язык',
+      component: 'ui-dropdown',
+      props: {
+        options: talkLanguageOptions,
+        title: 'Язык',
+        name: 'language',
+      },
+    },
+  },
+  break: commonAgendaItemFormSchema,
+  coffee: commonAgendaItemFormSchema,
+  closing: commonAgendaItemFormSchema,
+  afterparty: commonAgendaItemFormSchema,
+  other: {
+    title: {
+      label: 'Заголовок',
+      component: 'ui-input',
+      props: {
+        name: 'title',
+      },
+    },
+    description: {
+      label: 'Описание',
+      component: 'ui-input',
+      props: {
+        multiline: true,
+        name: 'description',
+      },
+    },
+  },
+};
+
 let lastMeetupId = 0;
 /**
  * @return {Meetup}

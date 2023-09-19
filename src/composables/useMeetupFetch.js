@@ -1,7 +1,7 @@
 import { computed, onMounted, unref, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import { useApi } from './useApi.js';
-import { getMeetup } from '../api/meetupsApi.js';
+import { getMeetup } from '@/api/meetupsApi.js';
 
 export function useMeetupFetch(meetupId) {
   const { request, result } = useApi(getMeetup);

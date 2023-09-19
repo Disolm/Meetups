@@ -5,7 +5,7 @@
 </template>
 
 <script>
-// TODO: Task 03-sfc/04-UiTransition
+// TO DO: Task 03-sfc/02-UiTransition
 
 export default {
   name: 'UiTransitionFade',

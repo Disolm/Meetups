@@ -33,7 +33,7 @@ httpClient.interceptors.response.use(
   (error) => {
     if ((!error.response || error.code === 'ECONNABORTED') && httpClient._onNetworkError) {
       httpClient._onNetworkError();
-    } else if (error.response.statusCode === 401 && httpClient._onAuthenticatedHandler) {
+    } else if (error.response.status === 401 && httpClient._onAuthenticatedHandler) {
       httpClient._onAuthenticatedHandler();
     } else {
       return Promise.reject(error);
